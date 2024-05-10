@@ -23,6 +23,9 @@ public class WebSiteBuildingApplication {
 
 	@PostConstruct
 	public void initTwilio() {
+		
+		System.out.println("This is account num "+twilioConfig.getAccountSid());
+		System.out.println("This is account num "+twilioConfig.getAuthToken());
 		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
 	}
 

@@ -257,6 +257,7 @@ public class School_Services {
 		} else {
 		 System.out.println("No Student Is Present In This Id...!");
 		}
+		
 		BufferedImage code = QRCodeGenerator.generateQRCode(entity);
 
 		return code;
