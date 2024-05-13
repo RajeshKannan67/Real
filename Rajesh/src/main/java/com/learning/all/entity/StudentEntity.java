@@ -37,6 +37,8 @@ public class StudentEntity {
 	
 	private Long phnumber;
 	
+	private String role;
+	
 	@OneToOne
 	@JoinColumn(name = "subject_entity_id")
     private SubjectEntity subject;

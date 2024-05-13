@@ -30,5 +30,9 @@ public class UserDetails {
 	
 	private Long phnumber;
 	
+	private String role;
+	
+	private String school;
+	
 	
 }

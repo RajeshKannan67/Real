@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Image</title>
+    <style>
+        body {
+            background-color: rgb(255, 255, 255); /* Realistic background color */
+            font-family: Arial, sans-serif;
+            color: #333; /* Font color */
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            background-color: rgb(225, 228, 154);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgb(105, 143, 233);
+            animation: fadeIn 1s ease-out;
+        }
+        h1 {
+            text-decoration-line: underline;
+            color: rgb(17, 111, 106); /* Font color */
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<form action="home" method="post">
+    <h1>QR Code Image</h1>
+    <img th:src="'data:image/png;base64,' + ${qrCodeImageBase64}" alt="QR Code">    
+</form>
+</body>
+</html>
