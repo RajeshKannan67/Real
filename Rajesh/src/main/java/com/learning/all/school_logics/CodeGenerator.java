@@ -1,5 +1,6 @@
 package com.learning.all.school_logics;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 
@@ -8,25 +9,12 @@ public class CodeGenerator {
 	
 
 
-	public  String generateUniqueCode() {
+	public static String generateUniqueCode() {
 
-		Random random = new Random();
-		String code = null;
-		boolean status = true;
+			return new DecimalFormat("0000")
+					.format(new Random().nextInt(9999));
 		
-//		do {
-//			int randomNumber = random.nextInt(10000);
-//			code = String.format("%04d", randomNumber);
-//			System.out.println("code "+code);
-//		} while (!isCodeUnique(code));
-	
-			
-		int randomNumber = random.nextInt(10000);
-		code = String.format("%04d", randomNumber);
-		return code;
 	}
-
-	
 	 
 	  }
 	 

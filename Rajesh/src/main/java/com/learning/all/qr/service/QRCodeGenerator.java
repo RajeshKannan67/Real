@@ -1,6 +1,6 @@
 package com.learning.all.qr.service;
 
-import com.learning.all.entity.StudentEntity;
+import com.learning.all.entity.UserDetails;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,15 +14,15 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.encoder.QRCode;
 public class QRCodeGenerator {
 
-	public static BufferedImage generateQRCode(StudentEntity student) throws IOException, WriterException {
+	public static BufferedImage generateQRCode(UserDetails user) throws IOException, WriterException {
 
 	    var qrCodeWriter = new QRCodeWriter();
 	  BitMatrix bitMatrix = qrCodeWriter.encode(
-	            		"ID: " + student.getUId() + "\n" +
-	                    "Firstname: " + student.getName() + "\n" +
-	                    "Place: " + student.getPlace() + "\n" +
-	                    "School: " + student.getSchool() + "\n" +
-	                    "Mobile: " + student.getPhnumber(), BarcodeFormat.QR_CODE, 200, 200);
+	            		"ID: " + user.getUserId() + "\n" +
+	                    "Name: " + user.getName() + "\n" +
+	                    "Role: " + user.getRole() + "\n" +
+	                    "School: " + user.getSchool() + "\n" +
+	                    "Mobile: " + user.getPhnumber(), BarcodeFormat.QR_CODE, 200, 200);
 
 	    BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 	    return qrCodeImage;

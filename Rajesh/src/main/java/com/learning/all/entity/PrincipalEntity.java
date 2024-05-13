@@ -35,4 +35,6 @@ public class PrincipalEntity {
 	private int age;
 	
 	private Long phnumber;
+	
+	private String role;
 }

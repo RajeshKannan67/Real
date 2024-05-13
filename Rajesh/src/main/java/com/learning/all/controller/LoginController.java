@@ -36,6 +36,7 @@ public class LoginController {
 	@Autowired
 	private School_Services sclServices;
 	
+	 
 	@GetMapping("/home")
 	public String home() {
 		
@@ -49,16 +50,16 @@ public class LoginController {
 	        return "signup";
 	    }
 	 
-	 @PostMapping("/sigingUp")
+	 @PostMapping("/siginingUp")
 	 public String sigingUp(@ModelAttribute("signupForm") SignupEntity signupForm, BindingResult bindingResult ,Model model) {
 	        if (bindingResult.hasErrors()) {
 	            return "signup";
 	        }
 	        try {
-	        	SignupEntity all = sclServices.processSignup(signupForm);
-	        	System.out.println(all.getPhnumber()+" ---------------");
 	        	
-		        model.addAttribute("all", all);
+	        	SignupEntity signupEntity =  new SignupEntity();
+	        	signupEntity = sclServices.processSignup(signupForm);
+		        model.addAttribute("signupEntity", signupEntity);
 
 			} catch (Exception e) {
 				System.err.println("Error adding in records");
@@ -71,6 +72,7 @@ public class LoginController {
 	
 	 @PostMapping("/userInfo")
 	 public String user_Info(@ModelAttribute("allrecords") SignupEntity user, BindingResult bindingResult ,Model model) {
+		 System.err.println("------User added in the UserInfo Table------");
 		 if (bindingResult.hasErrors()) {
 	            return "credentials";
 	        }
@@ -97,6 +99,8 @@ public class LoginController {
 	 
 	 @PostMapping("/log")
 	 public String login(@ModelAttribute("logDetails") UserDetails details, Model model) {
+		 	System.out.println("UserId ->"+details.getUserId());
+			System.out.println("Pass ->" +details.getPassword());
 		    boolean result = sclServices.authenticate(details);
 		    if (result) {
 		        System.out.println("Pass");
@@ -112,12 +116,19 @@ public class LoginController {
 	 
 	 
 	 @PostMapping("/id")
-	    public String findStudentById(@RequestParam("studentId") Long studentId, Model model) throws IOException, WriterException {
-	        BufferedImage qrCodeImage = sclServices.findById(studentId);
-	        String qrCodeImageBase64 = sclServices.convertImageToBase64(qrCodeImage);
-	        model.addAttribute("qrCodeImageBase64", qrCodeImageBase64);
-	        return "image";
-	    }
+	 public String findStudentById(@RequestParam("studentId") Long studentId, Model model) throws IOException, WriterException {
+	     
+		 BufferedImage qrCodeImage = sclServices.findById(studentId);
+	    
+		 String qrCodeImageBase64 = sclServices.convertImageToBase64(qrCodeImage);
+	     
+	     //System.out.println("Base64 Image Data: " + qrCodeImageBase64);
+	     
+	     model.addAttribute("qrCodeImageBase64", qrCodeImageBase64);
+	     
+	     return "image";
+	 }
+
 
 	    
 	 

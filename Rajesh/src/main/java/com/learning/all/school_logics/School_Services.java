@@ -50,7 +50,7 @@ public class School_Services {
 	public SignupEntity processSignup(SignupEntity signupForm) throws Exception {
 
 		String generatedCode = null;
-		CodeGenerator codeGenerator = new CodeGenerator();
+		
 		boolean status = true;
 		if (signupForm.getRole().equalsIgnoreCase("student")) {
 			StudentEntity student = new StudentEntity();
@@ -59,10 +59,11 @@ public class School_Services {
 			student.setPlace(signupForm.getPlace());
 			student.setSchool(signupForm.getSchool());
 			student.setPhnumber(signupForm.getPhnumber());
+			student.setRole(signupForm.getRole());
 			for (; status;) {
 
 				System.out.println("-------------------");
-				generatedCode = codeGenerator.generateUniqueCode();
+				generatedCode = CodeGenerator.generateUniqueCode();
 				Long valueOf = Long.valueOf(generatedCode);
 				String codeUnique = isCodeUnique(valueOf);
 				System.out.println("codeUnique " + codeUnique);
@@ -72,7 +73,7 @@ public class School_Services {
 					student.setUId(generatedCode);
 					status = false;
 					signupForm.setUserId(generatedCode);
-					messagetoPrincipal(signupForm); // Intimation message will send to principal
+					//messagetoPrincipal(signupForm); // Intimation message will send to principal
 					break;
 				} else {
 					System.out.println(generatedCode + "===========================");
@@ -92,10 +93,11 @@ public class School_Services {
 			teacher.setPlace(signupForm.getPlace());
 			teacher.setSchool(signupForm.getSchool());
 			teacher.setPhnumber(signupForm.getPhnumber());
+			teacher.setRole(signupForm.getRole());
 			for (; status;) {
 
 				System.out.println("-------------------");
-				generatedCode = codeGenerator.generateUniqueCode();
+				generatedCode = CodeGenerator.generateUniqueCode();
 				Long valueOf = Long.valueOf(generatedCode);
 				String codeUnique = isCodeUnique(valueOf);
 				System.out.println("codeUnique " + codeUnique);
@@ -105,7 +107,7 @@ public class School_Services {
 					teacher.setUId(generatedCode);
 					status = false;
 					signupForm.setUserId(generatedCode);
-					messagetoPrincipal(signupForm); // Intimation message will send to principal
+					//messagetoPrincipal(signupForm); // Intimation message will send to principal
 					break;
 				} else {
 					System.out.println(generatedCode + "===========================");
@@ -126,10 +128,12 @@ public class School_Services {
 			princi.setPlace(signupForm.getPlace());
 			princi.setSchool(signupForm.getSchool());
 			princi.setPhnumber(signupForm.getPhnumber());
+			princi.setRole(signupForm.getRole());
+			
 			for (; status;) {
 
 				System.out.println("-------------------");
-				generatedCode = codeGenerator.generateUniqueCode();
+				generatedCode = CodeGenerator.generateUniqueCode();
 				Long valueOf = Long.valueOf(generatedCode);
 				String codeUnique = isCodeUnique(valueOf);
 				System.out.println("codeUnique " + codeUnique);
@@ -189,6 +193,8 @@ public class School_Services {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(plainPassword);
 		userDetails.setPassword(hashedPassword);
+		userDetails.setSchool(user.getSchool());
+		userDetails.setRole(user.getRole());
 		repo.save(userDetails);
 
 	}
@@ -197,7 +203,8 @@ public class School_Services {
 		boolean status = false;
 		Long user_id = details.getUserId();
 		String providedPassword = details.getPassword();
-
+		System.out.println("UserId ->"+details.getUserId());
+		System.out.println("Pass ->" +details.getPassword());
 		UserDetails user = repo.findByUserId(user_id);
 		if (user != null) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -248,18 +255,15 @@ public class School_Services {
 
 	public BufferedImage findById(Long id) throws IOException, WriterException {
 
-		StudentEntity entity = null;
-		Optional<StudentEntity> optionalStudent = studentRepo.findById(id);
-
-		if (optionalStudent.isPresent()) {
-		    StudentEntity student = optionalStudent.get();
-		    entity = student;
-		} else {
-		 System.out.println("No Student Is Present In This Id...!");
-		}
+		BufferedImage code = null;
+		System.out.println("id ->"+id);
+		UserDetails user = repo.findByUserId(id);
 		
-		BufferedImage code = QRCodeGenerator.generateQRCode(entity);
-
+		if (user!=null) 
+		code = QRCodeGenerator.generateQRCode(user);
+		else
+			System.out.println("No user in this "+id+"..!");
+		
 		return code;
 	}
 

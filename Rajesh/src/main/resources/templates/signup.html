@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Sign UP</title>
 
 <style>
     body {
-        background-color: #6B3B85; /* Royal purple background color */
+        background-color: rgb(115, 115, 115); 
         overflow: hidden; /* Hide overflow for the waving effect */
     }
 
@@ -16,7 +14,7 @@
         width: 400px;
         margin: 50px auto;
         padding: 20px;
-        background-color: #7FFFD4; /* Light grey background for the form container */
+        background-color: rgb(202, 255, 202); 
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         animation: wave 2s infinite alternate; /* Apply the waving animation */
@@ -55,8 +53,8 @@
         padding: 10px;
         border: none;
         border-radius: 5px;
-        background-color: #007bff;
-        color: #fff;
+        background-color: rgb(255, 255, 128);
+        color: rgb(0, 0, 0);
         font-size: 16px;
         cursor: pointer;
     }
@@ -77,9 +75,9 @@
 </head>
 <body>
 	<div align="center">
-		<b>Fill all Information</b>
+		<h3>Fill all Information</h3>
 		<div class="container">
-			<form action="sigingUp" method="post" modelAttribute="signupForm">
+			<form action="siginingUp" method="post" modelAttribute="signupForm">
 				<div class="form-group">
 					<label for="name">Name:</label> <input type="text" id="name"
 						name="name" required>
