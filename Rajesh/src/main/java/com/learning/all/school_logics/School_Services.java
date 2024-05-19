@@ -59,7 +59,7 @@ public class School_Services {
 			student.setPlace(signupForm.getPlace());
 			student.setSchool(signupForm.getSchool());
 			student.setPhnumber(signupForm.getPhnumber());
-			student.setRole(signupForm.getRole());
+			student.setRole("STUDENT");
 			for (; status;) {
 
 				System.out.println("-------------------");
@@ -93,7 +93,7 @@ public class School_Services {
 			teacher.setPlace(signupForm.getPlace());
 			teacher.setSchool(signupForm.getSchool());
 			teacher.setPhnumber(signupForm.getPhnumber());
-			teacher.setRole(signupForm.getRole());
+			teacher.setRole("TEACHER,STUDENT");
 			for (; status;) {
 
 				System.out.println("-------------------");
@@ -128,7 +128,7 @@ public class School_Services {
 			princi.setPlace(signupForm.getPlace());
 			princi.setSchool(signupForm.getSchool());
 			princi.setPhnumber(signupForm.getPhnumber());
-			princi.setRole(signupForm.getRole());
+			princi.setRole("PRINCIPAL,TEACHER,STUDENT");
 			
 			for (; status;) {
 
@@ -194,7 +194,13 @@ public class School_Services {
 		String hashedPassword = passwordEncoder.encode(plainPassword);
 		userDetails.setPassword(hashedPassword);
 		userDetails.setSchool(user.getSchool());
-		userDetails.setRole(user.getRole());
+		if(user.getRole().equalsIgnoreCase("principal")) {
+			userDetails.setRole("PRINCIPAL,TEACHER,STUDENT");
+		}else if(user.getRole().equalsIgnoreCase("teacher")) {
+			userDetails.setRole("TEACHER,STUDENT");
+		}else {
+			userDetails.setRole("STUDENT");
+		}
 		repo.save(userDetails);
 
 	}
@@ -273,5 +279,13 @@ public class School_Services {
 	        byte[] imageBytes = outputStream.toByteArray();
 	        return Base64.getEncoder().encodeToString(imageBytes);
 	    }
+
+	public List<StudentEntity> findAll() {
+
+		List<StudentEntity> findAll = studentRepo.findAll();
+		
+		return findAll;
+		
+	}
 
 }

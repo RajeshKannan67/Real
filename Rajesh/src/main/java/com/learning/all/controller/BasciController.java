@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.zxing.WriterException;
@@ -31,7 +32,7 @@ import com.learning.all.school_logics.School_Services;
 import reactor.core.publisher.Mono;
 
 @Controller
-public class LoginController {
+public class BasciController {
 
 	@Autowired
 	private School_Services sclServices;
@@ -53,7 +54,7 @@ public class LoginController {
 	 @PostMapping("/siginingUp")
 	 public String sigingUp(@ModelAttribute("signupForm") SignupEntity signupForm, BindingResult bindingResult ,Model model) {
 	        if (bindingResult.hasErrors()) {
-	            return "signup";
+	            return "redirect:/siginingUp";
 	        }
 	        try {
 	        	
@@ -70,11 +71,25 @@ public class LoginController {
 	 
 	 
 	
+	 
+	 
+	 
+//	 @GetMapping("primary/success")
+//	    public String successPage() {
+//	        return "success"; 
+//	    }
+//	 
+	 @GetMapping("/login")
+	    public String login() {
+		 System.out.println("----------------------> Login Page called up");
+	        return "login";
+	    }
+	 
 	 @PostMapping("/userInfo")
 	 public String user_Info(@ModelAttribute("allrecords") SignupEntity user, BindingResult bindingResult ,Model model) {
 		 System.err.println("------User added in the UserInfo Table------");
 		 if (bindingResult.hasErrors()) {
-	            return "credentials";
+	            return "redirect:/credentials";
 	        }
 	        try {
 	        	sclServices.addUser(user);
@@ -82,54 +97,25 @@ public class LoginController {
 				System.err.println("Error adding in records");
 				e.printStackTrace();
 			}
-	        return "redirect:/success";
-	    }
-	 
-	 
-	 @GetMapping("/success")
-	    public String successPage() {
-	        return "success"; 
-	    }
-	 
-	 @GetMapping("/login")
-	    public String login() {
-		 
-	        return "login";
-	    }
-	 
-	 @PostMapping("/log")
-	 public String login(@ModelAttribute("logDetails") UserDetails details, Model model) {
-		 	System.out.println("UserId ->"+details.getUserId());
-			System.out.println("Pass ->" +details.getPassword());
-		    boolean result = sclServices.authenticate(details);
-		    if (result) {
-		        System.out.println("Pass");
-		        return "redirect:https://www.iplt20.com/";
-		    } else {
-		        System.out.println("fail");
-		        String msg = "Authentication Failed...!";
-		        model.addAttribute("errorMessage", msg);
-		        return "redirect:/login";
-		    }
-	 
-}
-	 
-	 
-	 @PostMapping("/id")
-	 public String findStudentById(@RequestParam("studentId") Long studentId, Model model) throws IOException, WriterException {
-	     
-		 BufferedImage qrCodeImage = sclServices.findById(studentId);
-	    
-		 String qrCodeImageBase64 = sclServices.convertImageToBase64(qrCodeImage);
-	     
-	     //System.out.println("Base64 Image Data: " + qrCodeImageBase64);
-	     
-	     model.addAttribute("qrCodeImageBase64", qrCodeImageBase64);
-	     
-	     return "image";
-	 }
+	        return "redirect:/login";
 
-
-	    
+	    }
+	 
+//	 @PostMapping("/log")
+//	 public String login(@ModelAttribute("logDetails") UserDetails details, Model model) {
+//		 	System.out.println("UserId ->"+details.getUserId());
+//			System.out.println("Pass ->" +details.getPassword());
+//		    boolean result = sclServices.authenticate(details);
+//		    if (result) {
+//		        System.out.println("Pass");
+//		        return "redirect:https://www.iplt20.com/";
+//		    } else {
+//		        System.out.println("fail");
+//		        String msg = "Authentication Failed...!";
+//		        model.addAttribute("errorMessage", msg);
+//		        return "redirect:/login";
+//		    }
+//	 
+//}
 	 
 }
