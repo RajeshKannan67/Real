@@ -18,6 +18,8 @@ public interface UserRepo extends JpaRepository<UserDetails, Long> {
 
 	//@Query("SELECT u FROM UserDetails u WHERE u.user_id = :userId and u.password= :password")
 	UserDetails findByUserIdAndPassword(Long userId, String password);
+
+	Optional<UserDetails> findByname(String username);
 	
 	//Optional<UserDetails> findByserid(Long id);
 

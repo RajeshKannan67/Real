@@ -3,95 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Login</title>
     <style>
         body {
-            background-color: rgb(255, 255, 255); /* Light green background color */
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        .container {
-            width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff; /* White background for the form */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: wave 2s infinite alternate; /* Apply the waving animation */
+        .login-container {
+            background-color: #fff; /* White container background */
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
         }
 
-        @keyframes wave {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(5deg); }
-            100% { transform: rotate(0deg); }
+        .login-container h2 {
+            margin-bottom: 30px;
+            color: #333; /* Heading color */
         }
 
-        .heading {
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333; /* Dark grey color */
-            animation: blink 1s infinite alternate; /* Apply blinking animation */
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-        }
-
-        .form-group input[type="text"], .form-group input[type="password"] {
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
             width: calc(100% - 20px);
             padding: 10px;
-            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            border: 1px solid #ccc; /* Input border color */
             border-radius: 5px;
-            font-size: 16px;
+            box-sizing: border-box;
         }
 
-        .submit-btn {
-            background-color: #4CAF50; /* Green background for submit button */
-            color: white;
-            padding: 10px 20px;
+        .login-form input[type="submit"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #007bff; /* Submit button background color */
+            color: #fff; /* Submit button text color */
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
             transition: background-color 0.3s ease;
+            box-sizing: border-box;
         }
 
-        .submit-btn:hover {
-            background-color: #00FF7F; /* Darker green background on hover */
+        .login-form input[type="submit"]:hover {
+            background-color: #0056b3; /* Submit button hover background color */
         }
     </style>
 </head>
+
 <body>
-
-<div class="container">
-    <div class="heading" align="center">Enter Your Login Credentials</div>
-    <form action="log" method="post" modelAttribute="logDetails">
-        <div class="form-group">
-            <label for="user_id">User Id:</label>
-            <input type="text" id="userId" name="userId" placeholder="Enter Your User ID" required>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
-        </div>
-        
-        <div class="form-group">
-            <input type="submit" value="Submit" class="submit-btn">
-        </div>
-    </form>
-</div>
-
+	
+	
+    <div class="login-container">
+        <h2>Login</h2>
+        <form class="login-form" action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
 </body>
 </html>
