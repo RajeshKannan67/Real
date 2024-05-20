@@ -288,4 +288,21 @@ public class School_Services {
 		
 	}
 
+	public Boolean deleteByStudentId(Long studentId) {
+
+		Optional<StudentEntity> student = studentRepo.findById(studentId);
+		Optional<UserDetails> userInfo =         repo.findById(studentId);
+		if(student.isPresent() && userInfo.isPresent()) {
+			
+			studentRepo.deleteById(studentId);
+			       repo.deleteById(studentId);
+			  
+			return true;
+			
+		}else return false;
+		
+	
+		
+	}
+
 }

@@ -26,18 +26,24 @@ public class TeacherController {
 	
 	
 	@GetMapping("/teacher/home")
-	public String teascherHome() {
+	public String teascherHome(Model model) {
+		
+	     List<StudentEntity> findAll = sclServices.findAll();
+	     
+	     model.addAttribute("students", findAll);
 		return "Teacher-home";
 	}
 	
 	
 	
 	
-	@PostMapping("/teacher/id")
+	@PostMapping("/teacher/{id}")
 	 public String findStudentById(@RequestParam("studentId") Long studentId, Model model) throws IOException, WriterException {
-	     
-		 BufferedImage qrCodeImage = sclServices.findById(studentId);
 	    
+		//System.out.println("This is a id "+studentId);
+		
+		 BufferedImage qrCodeImage = sclServices.findById(studentId);
+	     
 		 String qrCodeImageBase64 = sclServices.convertImageToBase64(qrCodeImage);
 	     
 	     //System.out.println("Base64 Image Data: " + qrCodeImageBase64);
@@ -47,13 +53,21 @@ public class TeacherController {
 	     return "image";
 	 }
 	
-	
-	@GetMapping("/studentDetail")
-	public String allStudent (Model model){
-		List<StudentEntity> findAll = sclServices.findAll();
-		model.addAttribute("students", findAll);
-		return "studentDetail";
+	@PostMapping("/teacher/{id}")
+	public void deleteStudentById(@RequestParam("studentId") Long studentId, Model model) {
+		
+		Boolean action = sclServices.deleteByStudentId(studentId);
+		
+		if(action) 
+			model.addAttribute("action", "You Entered Student in the Id "+studentId+" is Successfully Deleted");
+			
+		else 			
+			model.addAttribute("action", "You Don't Have the Permission to Deleting Actions...!");
+		
+				
 	}
+	
+	
 	
 	
 }

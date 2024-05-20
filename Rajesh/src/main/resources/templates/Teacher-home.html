@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylish HTML Page</title>
+    <title>Teacher Home Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: rgb(0, 64, 64);
+            background-color: rgb(70, 57, 58);
         }
 
         .container {
@@ -21,10 +22,10 @@
             box-shadow: 0 0 10px rgb(239, 58, 5);
         }
 
-        h1, h2 {
+        h1,h2{
+            font-family: Georgia, 'Times New Roman', Times, serif;
             color: rgb(104, 217, 113);
             text-align: center;
-            
         }
 
         .links {
@@ -33,32 +34,146 @@
             margin-top: 30px;
         }
 
-        .link {
+        .link,
+        .button {
             flex: 1;
             text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
             padding: 15px;
-            background-color: rgb(0, 0, 255);
+            background-color: rgb(45, 141, 238);
             color: rgb(255, 255, 255);
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 19px;
+            box-shadow: 0 0 5px rgb(255, 0, 0);
             transition: transform 0.3s;
             text-decoration: none;
-            margin: 0 10px; /* Added margin between the link boxes */
+            margin: 0 95px; /* Adjusted margin between the link boxes */
+            border: none;
+            cursor: pointer;
         }
 
-        .link:hover {
+        .link:hover,
+        .button:hover {
             transform: scale(1.05);
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid rgb(128, 255, 0);
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: rgb(90, 95, 254);
+        }
+
+        tbody {
+		
+            color: rgb(192, 192, 192);
+        }
+        
+        label {
+			font-family: Georgia, 'Times New Roman', Times, serif;
+			color:rgb(255, 128, 0) ;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+    		width: calc(38% - 20px); /* Reduce width by 20px (10px padding on each side) */
+   			padding: 6px; /* Reduced padding */
+    		border: 1px solid #ccc;
+    		border-radius: 3px; /* Reduced border-radius */
+    		box-sizing: border-box;
+    		margin-bottom: 20px;
+}
+
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgb(128, 255, 0);
+            color: black;
+        }
+
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Welcome to Our Stylish HTML Page</h1>
-        <h2>Links</h2>
+        <h1>This is a Teachers Home Page</h1>
+        <h2>Teachers have the Rights to view the Students Details</h2>
+       
         <div class="links">
-            <a href="/studentDetail" class="link">View Students Details</a>
-            <a href="school" class="link">About School</a>
+            <input type="button" class="button" value="View Students List" onclick="showStudents()">
+            <a href="#" class="link">About School</a>
         </div>
+        <div id="studentList" style="display: none;">
+            <table id="studentTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Place</th>
+                        <th>Number</th>
+                        <th>School</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Student data will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+        </br>
+        </br>
+        <form th:action="@{'/teacher/' + ${studentId}}" method="post">
+            <label for="studentId">Input Student Id</label>
+            <input type="text" id="studentId" name="studentId" th:value="${studentId}" placeholder="Enter Student Id to generate QR " required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        
     </div>
+
+    <script th:inline="javascript">
+        function showStudents() {
+            /* This script block will be processed by Thymeleaf */
+            var students = /*[[${students}]]*/[]; // Fetching student list from model
+            var tableBody = document.getElementById("studentTable").getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clearing existing rows
+
+            students.forEach(function (student) {
+                var row = tableBody.insertRow();
+                var idCell = row.insertCell(0);
+                idCell.textContent = student.uid;
+                var nameCell = row.insertCell(1);
+                nameCell.textContent = student.name;
+                var placeCell = row.insertCell(2);
+                placeCell.textContent = student.place;
+                var numberCell = row.insertCell(3);
+                numberCell.textContent = student.phnumber;
+                var schoolCell = row.insertCell(4);
+                schoolCell.textContent = student.school;
+            });
+
+            document.getElementById("studentList").style.display = "block";
+        }
+    </script>
 </body>
+
 </html>
