@@ -45,8 +45,8 @@ public class SecurityConfig {
 						.authorizeHttpRequests(req -> {
 					//	req.requestMatchers("//**").permitAll();
 						req.requestMatchers("/principal/**").hasRole("PRINCIPAL");
-						req.requestMatchers("/teacher/**").hasRole("TEACHER");
-						req.requestMatchers("/student/**").hasRole("STUDENT");
+						req.requestMatchers("/teacher/**").hasAnyRole("TEACHER","PRINCIPAL");
+						req.requestMatchers("/student/**").hasAnyRole("STUDENT","TEACHER","PRINCIPAL");
 						req.anyRequest().permitAll();
 						})
 						
@@ -61,10 +61,11 @@ public class SecurityConfig {
 			.build();
 		}
 	
-	@Bean
-	public UserDetailsService detailsService() {
 		
-		return user;
-	}
+		  @Bean 
+		  public UserDetailsService detailsService() {
+		  
+		  return user; }
+		 
 	
 }

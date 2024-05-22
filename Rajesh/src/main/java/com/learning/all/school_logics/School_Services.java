@@ -93,7 +93,7 @@ public class School_Services {
 			teacher.setPlace(signupForm.getPlace());
 			teacher.setSchool(signupForm.getSchool());
 			teacher.setPhnumber(signupForm.getPhnumber());
-			teacher.setRole("TEACHER,STUDENT");
+			teacher.setRole("TEACHER");
 			for (; status;) {
 
 				System.out.println("-------------------");
@@ -128,7 +128,7 @@ public class School_Services {
 			princi.setPlace(signupForm.getPlace());
 			princi.setSchool(signupForm.getSchool());
 			princi.setPhnumber(signupForm.getPhnumber());
-			princi.setRole("PRINCIPAL,TEACHER,STUDENT");
+			princi.setRole("PRINCIPAL");
 			
 			for (; status;) {
 
@@ -194,13 +194,7 @@ public class School_Services {
 		String hashedPassword = passwordEncoder.encode(plainPassword);
 		userDetails.setPassword(hashedPassword);
 		userDetails.setSchool(user.getSchool());
-		if(user.getRole().equalsIgnoreCase("principal")) {
-			userDetails.setRole("PRINCIPAL,TEACHER,STUDENT");
-		}else if(user.getRole().equalsIgnoreCase("teacher")) {
-			userDetails.setRole("TEACHER,STUDENT");
-		}else {
-			userDetails.setRole("STUDENT");
-		}
+		userDetails.setRole(user.getRole());
 		repo.save(userDetails);
 
 	}

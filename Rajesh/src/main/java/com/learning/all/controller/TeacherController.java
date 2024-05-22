@@ -53,19 +53,21 @@ public class TeacherController {
 	     return "image";
 	 }
 	
-	@PostMapping("/teacher/{id}")
-	public void deleteStudentById(@RequestParam("studentId") Long studentId, Model model) {
-		
-		Boolean action = sclServices.deleteByStudentId(studentId);
-		
-		if(action) 
-			model.addAttribute("action", "You Entered Student in the Id "+studentId+" is Successfully Deleted");
-			
-		else 			
-			model.addAttribute("action", "You Don't Have the Permission to Deleting Actions...!");
-		
-				
-	}
+		/*
+		 * @PostMapping("/teacher/{id}") public void
+		 * deleteStudentById(@RequestParam("studentId") Long studentId, Model model) {
+		 * 
+		 * Boolean action = sclServices.deleteByStudentId(studentId);
+		 * 
+		 * if(action) { model.addAttribute("action",
+		 * "You Entered Student in the Id "+studentId+" is Successfully Deleted");}
+		 * 
+		 * else { model.addAttribute("action",
+		 * "You Don't Have the Permission to Deleting Actions...!");}
+		 * 
+		 * 
+		 * }
+		 */
 	
 	
 	

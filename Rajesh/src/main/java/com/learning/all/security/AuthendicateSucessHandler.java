@@ -16,7 +16,6 @@ public class AuthendicateSucessHandler extends SavedRequestAwareAuthenticationSu
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
-		System.err.println("_____________________________________________________________________________________");
 		boolean isPrincipal = authentication.getAuthorities().stream()
 				.anyMatch(role -> role.getAuthority().equals("ROLE_PRINCIPAL"));
 

@@ -37,12 +37,12 @@ public class MyUserDetails implements UserDetailsService{
 		
 	}
 
-private String[] getRoles(com.learning.all.entity.UserDetails user) {
+private String getRoles(com.learning.all.entity.UserDetails user) {
 		
 		if(user.getRole()==null) {
-			return new String[] {"USER"};
+			return  "USER";
 		}
 		System.out.println(user.getRole());
-		return user.getRole().split(",");
+		return user.getRole();
 	}
 }
